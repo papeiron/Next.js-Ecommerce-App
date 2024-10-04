@@ -85,9 +85,6 @@ A user can browse products, manage their account, add items to their shopping ba
 
 &thinsp;
 
-![6](https://github.com/user-attachments/assets/2a8b64e6-daba-4954-8f9f-954cd285d7e1)
-
-
 | Feature                          | Description                                                                                                                                                                                                                            |
 | -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | <img width=200/>                 | <img width=770/>                                                                                                                                                                                                                       |
