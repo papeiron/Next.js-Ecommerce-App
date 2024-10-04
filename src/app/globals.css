@@ -2,32 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+@layer base {
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
-}
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-with-border {
+    @apply flex items-center;
   }
+  .text-with-border::before,
+  .text-with-border::after {
+    content: '';
+    @apply flex-1 border-b border-gray-300;
+  }
+  .text-with-border::before {
+    @apply mr-2;
+  }
+  .text-with-border::after {
+    @apply ml-2;
+  }
+  .icon-color {
+    @apply fill-current text-gray-800;
+  }
+  .soft-text {
+    @apply text-gray-custom-5;
+  }
+  .pause {
+    animation-play-state: paused;
+  }
+}
+
+table tbody td:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+table tbody td:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+table thead th:first-child {
+  border-radius: 12px 0 0 12px;
+}
+
+table thead th:last-child {
+  border-radius: 0 12px 12px 0;
+}
+
+.leaflet-popup .leaflet-popup-content {
+  width: auto !important;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: theme('colors.gray.50');
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: theme('colors.gray.200');
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.gray.300');
 }
