@@ -5,7 +5,7 @@
 Introducing a cutting-edge e-commerce platform built with Next.js, designed to support multiple stores effortlessly.
 <hr/>
 <br/>
-<a href='www.priashop.com'>Live preview</a>
+<a href='https://www.priashop.com/'>Live preview</a>
 <br/>
 <br/>
 
