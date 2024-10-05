@@ -1,9 +1,13 @@
 <p align='center'>
   <img src='https://github.com/user-attachments/assets/3b3b3e7c-a2f6-4870-abd3-e0d38199fda7' width='300px'/>
 </p>
-<hr/>
+<br/>
 Introducing a cutting-edge e-commerce platform built with Next.js, designed to support multiple stores effortlessly.
-
+<hr/>
+<br/>
+<a href='https://www.priashop.com/'>Live preview</a>
+<br/>
+<br/>
 
 <h2 id="project-overview">🛠 Project Overview</h2>
 <p>Pria e-commerce platform leverages the following key technologies:</p>
