@@ -135,7 +135,12 @@ Admin can manage product categories, toggle store status (active/inactive), and 
 </div>
 
 <div>
-  
+
+<h2>
+  📊 Google Lighthouse performance 
+</h2>
+<div><img src='https://github.com/user-attachments/assets/d807d4cf-ab76-411c-8c45-74a54b4f396b'/></div>
+
 <h2>📘 Usage</h2>
 1. Clone the repository
 
