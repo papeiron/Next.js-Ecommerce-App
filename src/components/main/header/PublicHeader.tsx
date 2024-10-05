@@ -10,6 +10,7 @@ import DropdownNavMenu from './DropdownNavMenu';
 import { currentUser } from '@/lib/helpers';
 import { getSearchHistory } from '@/lib/services/search';
 import { FaGithub } from 'react-icons/fa';
+import Image from 'next/image';
 
 async function PublicHeader() {
   const categories = await db.category.findMany({
@@ -69,8 +70,15 @@ async function PublicHeader() {
         <div className="mx-auto flex justify-center gap-5 pt-2">
           <Link
             href="/products"
-            className="flex items-end border-b-2 border-white pb-2 font-semibold hover:border-orange-1 hover:text-orange-1"
+            className="flex items-center gap-x-1.5 border-b-2 border-white font-semibold hover:border-orange-1 hover:text-orange-1"
           >
+            <div className="relative h-8 w-8 overflow-hidden rounded-md">
+              <Image
+                src="https://fhnqpyisstbfjkvuzmvn.supabase.co/storage/v1/object/public/category-image/all.webp"
+                alt="all products"
+                fill
+              />
+            </div>
             <p>All Products</p>
           </Link>
           <DropdownNavMenu categories={categories} />

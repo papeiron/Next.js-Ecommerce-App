@@ -22,7 +22,7 @@ function EducationalSiteDisclaimerBanner() {
       <button
         onClick={() => setOpen(false)}
         className="absolute right-2 top-2 text-red-700 hover:text-red-900"
-        aria-label="Kapat"
+        aria-label="Close"
       >
         <X size={16} />
       </button>
