@@ -2,18 +2,6 @@ import { TableCell, TableRow } from '@/components/ui/table';
 import { formatDate } from '@/lib/utils';
 import { StoreCarrierForTable } from '@/types/Carrier';
 
-// { value: 'id', label: 'ID' },
-// { value: 'image', label: 'Image' },
-// { value: 'status', label: 'Status'},
-// { value: 'code', label: 'Code' },
-// { value: 'rate name', label: 'Rate Name' },
-// { value: 'per_kg_rate', label: 'Per Kg Rate', sortable: false },
-// { value: 'min_weight', label: 'Min Weight', sortable: false },
-// { value: 'max_weight', label: 'Max Weight', sortable: true },
-// { value: 'created_at', label: 'Created', sortable: true },
-// { value: 'updated_at', label: 'Updated', sortable: true },
-// { value: ' ', label: ' ' },
-
 type CarrierTableRowProps = {
   storeCarrier: StoreCarrierForTable;
   index: number;

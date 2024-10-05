@@ -39,42 +39,6 @@ export type OrderForMyReviews = Order & {
   >;
 };
 
-// const orders = await db.order.findMany({
-//   where: {
-//     user_id: userId,
-//     order_status: 'COMPLETED',
-//     orderItems: {
-//       some: {
-//         product: {
-//           reviews: {
-//             none: {
-//               user_id: userId,
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-//   include: {
-//     orderItems: {
-//       where: {
-//         product: {
-//           reviews: {
-//             none: {
-//               user_id: userId,
-//             },
-//           },
-//         },
-//       },
-//       include: {
-//         product: true,
-//       },
-//     },
-//   },
-// });
-
-//
-
 type OrderStoreRelations = Prisma.OrderStoreInclude;
 
 export type OrderStoreWith<T extends keyof OrderStoreRelations> =

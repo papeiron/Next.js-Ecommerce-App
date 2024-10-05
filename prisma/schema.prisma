@@ -130,7 +130,6 @@ model TwoFactorToken {
 model TwoFactorConfirmation {
   id          String @id @default(cuid())
 
-  // expires eklenebilir
 
   user_id     String
   user User   @relation(fields: [user_id], references: [id], onDelete: Cascade)

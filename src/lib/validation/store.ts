@@ -2,11 +2,6 @@ import { z } from 'zod';
 
 const cellphoneRegex = /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}$/;
 
-// // const attributeSchema = z.object({
-// //   attributeName: z.string().min(1, 'Attribute name is required'),
-// //   attributeValue: z.string().min(1, 'Attribute value is required'),
-// // });
-
 export const newApplicationSchema = z.object({
   cellphone: z
     .string()

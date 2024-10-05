@@ -65,7 +65,6 @@ const login = async (
   // 2FA
   if (existingUser.isTwoFactorEnabled && existingUser.email) {
     if (code) {
-      // TODO: Verify code
       const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email);
 
       if (!twoFactorToken) {

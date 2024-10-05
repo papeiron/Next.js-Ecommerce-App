@@ -107,7 +107,6 @@ function NewProductUpdateForm({ categoriesData, productToEdit }: NewProductFormP
       formRef.current.reset();
 
       setUploadedImageUrls([]);
-      // setAttributes([{ attributeName: '', attributeValue: '' }]);
     }
   }, []);
 
@@ -137,7 +136,6 @@ function NewProductUpdateForm({ categoriesData, productToEdit }: NewProductFormP
     setSelectedCategories([]);
   };
 
-  // category lere göre attribute lar
   const handleAttributesChange = (newAttributes: { [key: string]: string }) => {
     setProductAttributes(newAttributes);
   };

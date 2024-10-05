@@ -139,7 +139,7 @@ const editProduct = async (
   }));
 
   try {
-    // Check existing URLs in db
+    // check existing URLs in db
     const existingUrls = await db.productImage.findMany({
       where: {
         url: {

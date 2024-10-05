@@ -71,7 +71,6 @@ function AttributeInput({
 
       setAttributes(newAttributes);
 
-      // Mevcut attribute'ları onAttributesChange'e iletiyoruz
       const initialAttributes = Object.entries(newAttributes).reduce(
         (acc, [key, { value }]) => {
           acc[key] = value;
