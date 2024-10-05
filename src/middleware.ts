@@ -78,7 +78,16 @@ export default auth((req): any => {
   }
 
   if (!isLoggedIn) {
-    return Response.redirect(new URL('/signin', nextUrl));
+    let callbackUrl = nextUrl.pathname;
+    if (nextUrl.search) {
+      callbackUrl += nextUrl.search;
+    }
+
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+
+    return Response.redirect(
+      new URL(`/signin?callbackUrl=${encodedCallbackUrl}`, nextUrl),
+    );
   }
 
   // role-based access

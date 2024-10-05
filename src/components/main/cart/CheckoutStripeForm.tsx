@@ -14,6 +14,11 @@ type CheckoutStripeFormProps = {
   selectedAddressId: string;
 };
 
+const domain =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_APP_URL
+    : process.env.AUTH_TRUST_HOST;
+
 function CheckoutStripeForm({
   selectedCarriers,
   selectedAddressId,
@@ -86,18 +91,17 @@ function CheckoutStripeForm({
       elements,
       clientSecret,
       confirmParams: {
-        return_url: `http://localhost:3000/payment-success?order=${orderNo}`,
+        return_url: `${domain}/payment-success?order=${orderNo}`,
       },
       redirect: 'if_required',
     });
 
-    // `http://localhost:3000/cart/payment-success?amount=${amount}`
     if (error) {
       setError(error.message);
 
       if (typeof orderNo === 'string') deleteOrder(orderNo);
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-      router.push(`http://localhost:3000/payment-success?order=${orderNo}`);
+      router.push(`{domain}/payment-success?order=${orderNo}`);
     }
   };
 

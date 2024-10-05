@@ -108,7 +108,7 @@ export const getUniqueStoreIds = (cart: any): string[] => {
 
 export function getUrl() {
   if (process.env.NODE_ENV === 'production') {
-    return 'http://localhost:3000';
+    return 'https://www.priashop.com/';
   } else {
     return 'http://localhost:3000';
   }

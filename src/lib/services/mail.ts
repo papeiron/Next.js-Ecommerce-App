@@ -2,8 +2,13 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const domain =
+  process.env.NODE_ENV === 'production'
+    ? process.env.NEXT_PUBLIC_APP_URL
+    : process.env.AUTH_TRUST_HOST;
+
 export const sendResetPasswordEmail = async (email: string, token: string) => {
-  const confirmLink = `http://localhost:3000/new-password?token=${token}`;
+  const confirmLink = `${domain}/new-password?token=${token}`;
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',
@@ -14,7 +19,7 @@ export const sendResetPasswordEmail = async (email: string, token: string) => {
 };
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const confirmLink = `http://localhost:3000/new-verification?token=${token}`;
+  const confirmLink = `${domain}/new-verification?token=${token}`;
 
   await resend.emails.send({
     from: 'onboarding@resend.dev',

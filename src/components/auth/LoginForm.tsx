@@ -11,7 +11,6 @@ import { formatSeconds } from '@/lib/utils';
 import { Form, FormError, FormSuccess, SubmitButton, Input, Socials } from '../shared/ui';
 
 function LoginForm() {
-  const [formState, action] = useFormState(actions.login, { errors: {} });
   const [showTwoFactor, setShowTwoFactor] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,10 +18,12 @@ function LoginForm() {
   let validationErrors;
 
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl');
   const urlError =
     searchParams.get('error') === 'OAuthAccountNotLinked'
       ? 'Email already in use with different provider!'
       : '';
+  const [formState, action] = useFormState(actions.login, { errors: {} });
 
   useEffect(() => {
     if (showTwoFactor && expires && expires > 0) {
@@ -81,6 +82,8 @@ function LoginForm() {
           }
         </>
       )}
+
+      <input type="hidden" value={callbackUrl as string} name="callbackurl" />
 
       {!showTwoFactor && (
         <>

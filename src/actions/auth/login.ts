@@ -35,6 +35,8 @@ const login = async (
     code: formData.get('code') || '',
   });
 
+  const callbackUrl = formData.get('callbackurl') as string;
+
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -126,7 +128,7 @@ const login = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   } catch (err) {
     if (err instanceof AuthError) {
