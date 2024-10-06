@@ -97,7 +97,7 @@ function CheckoutStripeForm({
     });
 
     if (error) {
-      setError(error.message);
+      setError('An error occurred while making payment. Please try again.');
 
       if (typeof orderNo === 'string') deleteOrder(orderNo);
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
