@@ -12,6 +12,7 @@ export type FetchProductsByStoreProps = {
   currentPage?: number;
   itemsPerPage?: number;
   querySearch?: string;
+  includeUnapprovedStores?: boolean;
 };
 
 export const fetchProductsByStore = async ({
@@ -20,6 +21,7 @@ export const fetchProductsByStore = async ({
   currentPage,
   itemsPerPage = 10,
   querySearch,
+  includeUnapprovedStores = false,
 }: FetchProductsByStoreProps): Promise<{
   countOfProducts: number;
   products: ProductForTable[];
@@ -50,6 +52,7 @@ export const fetchProductsByStore = async ({
             { categories: { some: { category: { name: { contains: querySearch } } } } },
           ],
         }),
+      ...(includeUnapprovedStores ? {} : { store: { isActive: true } }),
     };
 
     const query: Prisma.ProductFindManyArgs = {
@@ -196,21 +199,6 @@ export const fetchAllProducts = async () => {
     return products;
   } catch {
     return null;
-  }
-};
-
-export const fetchTotalProductsCount = async (storeId: string) => {
-  try {
-    const count = await db.product.count({
-      where: {
-        store_id: storeId,
-        status: true,
-      },
-    });
-
-    return count;
-  } catch {
-    null;
   }
 };
 
@@ -591,21 +579,6 @@ export async function fetchStoreRatingByProductSlug(
       allRatings.reduce((sum, rating) => sum + rating, 0) / allRatings.length;
 
     return Number((averageRating * 2).toFixed(2));
-  } catch (error) {
-    console.error('Error fetching store rating:', error);
-    return null;
-  }
-}
-
-export async function fetchProductsByUser(userId: string) {
-  try {
-    const products = db.product.findMany({
-      where: {
-        id: userId,
-      },
-    });
-
-    return products;
   } catch (error) {
     console.error('Error fetching store rating:', error);
     return null;

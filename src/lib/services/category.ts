@@ -40,29 +40,73 @@ export async function fetchMainCategories(): Promise<CategoryForSidebar[]> {
       sub_categories: {
         include: {
           _count: {
-            select: { products: true },
+            select: {
+              products: {
+                where: {
+                  product: {
+                    store: {
+                      isActive: true,
+                    },
+                  },
+                },
+              },
+            },
           },
         },
         where: {
           isActive: true,
+          products: {
+            some: {
+              product: {
+                store: {
+                  isActive: true,
+                },
+              },
+            },
+          },
         },
       },
       products: {
         include: {
-          product: true,
+          product: {
+            include: {
+              store: true,
+            },
+          },
+        },
+        where: {
+          product: {
+            store: {
+              isActive: true,
+            },
+          },
         },
       },
     },
     where: {
-      AND: [{ parent_id: null }, { isActive: true }],
+      AND: [
+        { parent_id: null },
+        { isActive: true },
+        {
+          products: {
+            some: {
+              product: {
+                store: {
+                  isActive: true,
+                },
+              },
+            },
+          },
+        },
+      ],
     },
   };
 
   try {
     const categories = await db.category.findMany(query);
-
     return categories as CategoryForSidebar[];
-  } catch {
+  } catch (error) {
+    console.error('Error fetching main categories:', error);
     throw new Error("Couldn't fetch categories");
   }
 }
@@ -70,7 +114,7 @@ export async function fetchMainCategories(): Promise<CategoryForSidebar[]> {
 export async function fetchCategoryBySlug(
   slug: string,
 ): Promise<CategoryForSidebar | null> {
-  let query: Prisma.CategoryFindManyArgs = {
+  let query: Prisma.CategoryFindFirstArgs = {
     include: {
       sub_categories: {
         include: {
@@ -84,7 +128,18 @@ export async function fetchCategoryBySlug(
       },
       products: {
         include: {
-          product: true,
+          product: {
+            include: {
+              store: true,
+            },
+          },
+        },
+        where: {
+          product: {
+            store: {
+              isActive: true,
+            },
+          },
         },
       },
       attributes: {
@@ -98,15 +153,30 @@ export async function fetchCategoryBySlug(
       },
     },
     where: {
-      AND: [{ slug }, { isActive: true }],
+      AND: [
+        { slug },
+        { isActive: true },
+        {
+          products: {
+            some: {
+              product: {
+                store: {
+                  isActive: true,
+                },
+              },
+            },
+          },
+        },
+      ],
     },
   };
 
   try {
     const category = (await db.category.findFirst(query)) as CategoryForSidebar;
     return category;
-  } catch {
-    throw new Error("Couldn't fetch categories");
+  } catch (error) {
+    console.error('Error fetching category by slug:', error);
+    throw new Error("Couldn't fetch category");
   }
 }
 
@@ -257,7 +327,11 @@ export async function fetchCategorybyProduct(
         },
         products: {
           include: {
-            product: true,
+            product: {
+              include: {
+                store: true,
+              },
+            },
           },
         },
 
@@ -281,6 +355,9 @@ export async function fetchCategorybyProduct(
                 { description: { contains: searchQuery } },
                 { summary: { contains: searchQuery } },
               ],
+              store: {
+                isActive: true,
+              },
             },
           },
         },

@@ -33,7 +33,7 @@ function StatCard({ stat, ind }: StatCardProps) {
       <div className="flex gap-3">
         <p className="inline-block">Since last week</p>
         <span className="rounded-sm bg-white p-0.5 text-gray-custom-1">
-          {stat.percentageChange}%
+          {isNaN(Number(stat.percentageChange)) ? 0 : stat.percentageChange}%
           <MdArrowDropUp className="inline-block" />
         </span>
       </div>

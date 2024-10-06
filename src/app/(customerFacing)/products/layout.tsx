@@ -1,9 +1,10 @@
+import { Suspense } from 'react';
+
 import ProductSidebar from '@/components/main/products/ProductSidebar';
 import { Heading, SortBy } from '@/components/shared/ui';
 import BreadcrumbNavigation from '@/components/shared/ui/BreadcrumbNavigation';
 import Container from '@/components/shared/ui/Container';
 import { fetchMainCategories } from '@/lib/services/category';
-import { Suspense } from 'react';
 
 type LayoutProps = {
   children: React.ReactNode;

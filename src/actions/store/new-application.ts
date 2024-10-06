@@ -98,8 +98,7 @@ const newApplication = async (
 
   return {
     success: {
-      message:
-        'Your application has been submitted and your store has been automatically approved.',
+      message: 'Your shop has been successfully created.',
     },
   };
 };

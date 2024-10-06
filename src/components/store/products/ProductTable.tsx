@@ -51,11 +51,12 @@ async function ProductTable({ searchParams }: StoreProductTableProps) {
       currentPage,
       itemsPerPage: ITEMS_PER_PAGE,
       querySearch: query,
+      includeUnapprovedStores: true,
     })) || [];
 
   const { countOfProducts, products } = res;
 
-  const totalPages = Math.ceil(countOfProducts! / ITEMS_PER_PAGE); // fix
+  const totalPages = Math.ceil(countOfProducts! / ITEMS_PER_PAGE); // TODO: fix
 
   return (
     <div>
