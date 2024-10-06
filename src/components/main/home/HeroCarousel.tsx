@@ -94,7 +94,7 @@ function HeroCarousel({ discounts }: HeroCarouselProps) {
                     src={item?.image || '/placeholder-image.jpg'}
                     alt={item?.category?.name || 'Category name'}
                     fill
-                    className="object-contain"
+                    className="object-cover"
                   />
                 </div>
 

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
@@ -14,7 +14,7 @@ import { calculateTotalProductRating } from '@/lib/utils';
 import { ProductForShowPage } from '@/types';
 import ProductDetailsTab from './ProductDetailsTab';
 import { IoMdHeart } from 'react-icons/io';
-import { addToFavorites, deleteFromFavorites } from '@/actions/favorites';
+import { addToFavorites, deleteFromFavorites, toggleFavorite } from '@/actions/favorites';
 
 type ProductProps = {
   product: ProductForShowPage;
@@ -34,8 +34,11 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
   const [cartFormState, setCartFormState] = useState<FormStateType>({});
   const [favoriteFormState, setFavoriteFormState] = useState<FormStateType>({});
   const [animationKey, setAnimationKey] = useState(0);
-
   const user = useCurrentUser();
+  const [isOptimisticFavorite, setIsOptimisticFavorite] = useState(
+    !!product.favorites.find((f) => f.user_id === user?.id),
+  );
+
   const router = useRouter();
 
   // favorites
@@ -98,24 +101,27 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
     }
   }, [cartFormState]);
 
-  const handleAddFavorites = async () => {
+  const handleToggleFavorite = useCallback(async () => {
     if (!user) {
       router.push('/signin');
       return;
     }
 
-    if (isInFavoritesForCurrentUser) {
-      await deleteFromFavorites({
-        favoriteId: isInFavoritesForCurrentUser.id,
-        productSlug: product.slug,
-        formState: {},
-      });
-    } else {
-      const res = await addToFavorites({ productId: product.id, formState: {} });
+    setIsOptimisticFavorite((prev) => !prev);
 
-      setFavoriteFormState(res);
+    try {
+      const result = await toggleFavorite(product.id, product.slug);
+      if (result.error) {
+        setIsOptimisticFavorite((prev) => !prev);
+        toast.error(result.error);
+      } else if (result.success) {
+        toast.success(result.success);
+      }
+    } catch (error) {
+      setIsOptimisticFavorite((prev) => !prev);
+      toast.error('An unexpected error occurred');
     }
-  };
+  }, [user, router, product.id, product.slug]);
 
   useEffect(() => {
     if (favoriteFormState.error?.message) {
@@ -142,12 +148,13 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
           />
 
           <button
-            onClick={handleAddFavorites}
+            onClick={handleToggleFavorite}
             className="absolute right-2 top-2 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-50 shadow-sm"
           >
             <IoMdHeart
-              key={isInFavoritesForCurrentUser ? 'favorite' : 'not-favorite'}
-              className={`h-6 w-6 ${isInFavoritesForCurrentUser ? 'animate-heartbeat text-red-600' : 'text-red-200'}`}
+              className={`h-6 w-6 ${
+                isOptimisticFavorite ? 'text-red-600' : 'text-red-200'
+              } transition-colors duration-300`}
             />
           </button>
         </div>
