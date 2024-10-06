@@ -34,10 +34,12 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
   const [cartFormState, setCartFormState] = useState<FormStateType>({});
   const [favoriteFormState, setFavoriteFormState] = useState<FormStateType>({});
   const [animationKey, setAnimationKey] = useState(0);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const user = useCurrentUser();
   const [isOptimisticFavorite, setIsOptimisticFavorite] = useState(
     !!product.favorites.find((f) => f.user_id === user?.id),
   );
+  const [cartError, setCartError] = useState<string | null>(null);
 
   const router = useRouter();
 
@@ -72,18 +74,44 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
     });
   };
 
+  // cart
   const handleAddtoCart = async () => {
     if (!user) {
       router.push('/signin');
       return;
     }
-    const res = await addToCart({
-      productId: product.id,
-      options: selectedProductAttributes,
-      formState: {},
-    });
 
-    setCartFormState(res);
+    setIsAddingToCart(true);
+    setCartError(null);
+    toast.loading('Adding to cart...', { id: 'addToCart' });
+
+    try {
+      const res = await addToCart({
+        productId: product.id,
+        options: selectedProductAttributes,
+        formState: {},
+      });
+
+      if (res.error) {
+        const errorMessage = res.error.message
+          ? Object.values(res.error.message)[0]?.[0]
+          : 'An unknown error occurred';
+        toast.error(errorMessage, { id: 'addToCart' });
+        setCartError(errorMessage);
+
+        if (res.error.message?.options) {
+          setAnimationKey((prev) => prev + 1);
+        }
+      } else if (res.success) {
+        toast.success(res.success.message as string, { id: 'addToCart' });
+      }
+    } catch (error) {
+      const errorMessage = 'Failed to add to cart';
+      toast.error(errorMessage, { id: 'addToCart' });
+      setCartError(errorMessage);
+    } finally {
+      setIsAddingToCart(false);
+    }
   };
 
   useEffect(() => {
@@ -214,7 +242,16 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
                         .sort()
                         .map((val, valIndex) => (
                           <li
-                            className={`cursor-pointer rounded-md border px-4 py-2 ${cartFormState?.error?.message?.options[0].includes(att.category_attribute.name) && selectedProductAttributes.length !== selectableProductAttributes.length ? 'animate-shake border-red-300' : ''} ${selectedProductAttributes.some((att) => att.val === val) && 'border-2 !border-orange-1'}`}
+                            className={`cursor-pointer rounded-md border px-4 py-2 ${
+                              cartError &&
+                              selectedProductAttributes.length !==
+                                selectableProductAttributes.length
+                                ? 'animate-shake border-red-300'
+                                : ''
+                            } ${
+                              selectedProductAttributes.some((att) => att.val === val) &&
+                              'border-2 !border-orange-1'
+                            }`}
                             key={`${animationKey}-${val}-${valIndex}`}
                             onClick={() =>
                               handleSelectAttribute(att.category_attribute.name, val)
@@ -230,10 +267,15 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
             )}
 
             <div className="mt-6 w-[80%]">
-              <form action={handleAddtoCart}>
-                <input type="text" name="" />
-                <SubmitButton className="w-full">Add to cart</SubmitButton>
-              </form>
+              <button
+                onClick={handleAddtoCart}
+                disabled={isAddingToCart}
+                className={`w-full rounded-md bg-orange-500 px-4 py-2 text-white transition-colors ${
+                  isAddingToCart ? 'cursor-not-allowed opacity-50' : 'hover:bg-orange-600'
+                }`}
+              >
+                {isAddingToCart ? 'Adding...' : 'Add to Cart'}
+              </button>
             </div>
           </div>
         </div>
