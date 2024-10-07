@@ -96,7 +96,7 @@ function AutoPlayCarousel({
                 <ProductImageZoom
                   src={img.url}
                   alt={img.alt || 'Product Image'}
-                  className={`${imageSettings} `}
+                  className={`${imageSettings} p-1`}
                 />
               ) : (
                 <Image

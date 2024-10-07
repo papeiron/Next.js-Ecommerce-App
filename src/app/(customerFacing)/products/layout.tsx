@@ -36,7 +36,6 @@ async function Layout({ children }: LayoutProps) {
 
         <Container className="grid h-screen grid-cols-4 grid-rows-1 gap-x-6">
           <ProductSidebar fn={fetchMainCategories} showOnlyParents={false} />
-
           {children}
         </Container>
       </div>

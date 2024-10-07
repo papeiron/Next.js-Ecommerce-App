@@ -32,7 +32,7 @@ export type ProductForTable = ProductWith<
 };
 
 export type ProductForList = ProductWith<
-  'reviews' | 'image' | 'order_items' | 'coupons' | 'discount'
+  'reviews' | 'image' | 'order_items' | 'coupons' | 'discount' | 'favorites'
 > & {
   categories: {
     category: CategoryWith<'discount'>;

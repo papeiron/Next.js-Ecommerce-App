@@ -11,7 +11,7 @@ import { ProductForList } from '@/types/Product';
 import AutoPlayCarousel from './AutoPlayCarousel';
 import ProductPriceDisplay from './ProductPriceDisplay';
 import Rating from './Rating';
-import { Tag } from 'lucide-react';
+import { Heart, Tag } from 'lucide-react';
 
 function ProductCard({
   product,
@@ -41,16 +41,32 @@ function ProductCard({
             opts={{ loop: true, autoplayInterval: 4500 }}
             imageSettings="object-contain"
           />
-          {product?.discount && discountCheckIfEnded(product?.discount.end_date) && (
-            <div className="absolute left-2 top-2 animate-pulse">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-600 text-white shadow-lg">
-                <div className="flex flex-col items-center">
-                  <Tag size={16} />
-                  <span className="text-xs font-bold">SALE</span>
+          <div className="absolute left-2 top-2 flex flex-col gap-1.5">
+            {product.favorites && product.favorites.length > 0 && (
+              <div className="flex items-center space-x-1 rounded-full bg-white bg-opacity-80 px-2 py-1 shadow-sm">
+                <Heart size={14} className="fill-current text-red-500" />
+                <span className="text-xs font-semibold text-gray-700">
+                  {product.favorites.length}
+                </span>
+              </div>
+            )}
+
+            {((product?.discount && discountCheckIfEnded(product.discount.end_date)) ||
+              (categoryWithDiscount?.discount &&
+                discountCheckIfEnded(categoryWithDiscount.discount.end_date))) && (
+              <div className="animate-pulse">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-red-600 text-white shadow-lg">
+                  <div className="flex flex-col items-center">
+                    <Tag size={16} />
+                    <span className="h-full w-full text-[7px] font-bold leading-3">
+                      ON SALE
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
+
           <div>
             {product?.discount && discountCheckIfEnded(product?.discount.end_date) && (
               <div className="absolute right-2 top-14 flex h-10 w-10 items-center justify-center text-wrap rounded-full border-2 border-purple-900 bg-purple-500 p-1 shadow-lg ring-2 ring-purple-300 ring-opacity-50">
@@ -65,7 +81,7 @@ function ProductCard({
               discountCheckIfEnded(categoryWithDiscount?.discount.end_date) && (
                 <div className="absolute right-2 top-2 flex h-10 w-10 items-center justify-center text-wrap rounded-full border-2 border-purple-900 bg-purple-500 p-1 shadow-lg ring-2 ring-purple-300 ring-opacity-50">
                   <p
-                    className={`text-ellipsis text-center text-base leading-3 text-white ${teko.className}`}
+                    className={`text-ellipsis text-center text-base leading-3 text-white ${teko.className} `}
                   >
                     {capitalizeOnlyFirstLetter(categoryWithDiscount.name)} deals
                   </p>

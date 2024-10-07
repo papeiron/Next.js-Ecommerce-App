@@ -229,6 +229,7 @@ export const fetchProductsWithOptions = async (
             },
           },
         },
+        favorites: true,
       },
       take: 25,
     };
