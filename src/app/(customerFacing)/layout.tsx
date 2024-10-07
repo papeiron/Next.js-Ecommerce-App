@@ -4,7 +4,7 @@ import EducationalSiteDisclaimerBanner from '@/components/shared/ui/EducationalS
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex h-screen min-h-[130vh] flex-col">
+    <div className="flex h-auto min-h-[130vh] flex-col">
       <PublicHeader />
 
       <main className="flex-grow py-4">{children}</main>

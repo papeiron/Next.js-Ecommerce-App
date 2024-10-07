@@ -91,7 +91,7 @@ function AutoPlayCarousel({
       >
         <CarouselContent className="ml-0 pl-0">
           {images.map((img: ProductImage) => (
-            <CarouselItem className={`relative ${imageHeight} pl-0`} key={img.id}>
+            <CarouselItem className={`relative ${imageHeight} p-2`} key={img.id}>
               {imageZoom ? (
                 <ProductImageZoom
                   src={img.url}

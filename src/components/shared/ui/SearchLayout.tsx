@@ -36,7 +36,7 @@ function SearchLayout({ children, searchParams }: LayoutProps) {
             </Suspense>
           </div>
         </Container>
-        <Container className="grid h-screen grid-cols-4 grid-rows-1 gap-x-6">
+        <Container className="grid grid-cols-4 grid-rows-1 gap-x-6">
           <ProductSidebar
             fn={fetchCategorybyProduct}
             slug={searchQuery as string}

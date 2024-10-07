@@ -23,7 +23,7 @@ function ProductsPage({ searchParams }: PageProps) {
   const sort = searchParams.sort as string;
 
   return (
-    <div className="col-start-2 col-end-5">
+    <div className="col-start-2 col-end-5 h-full">
       <Suspense fallback={<EmptyTableBody rows={3} cols={3} />}>
         <ProductList
           minPrice={Number(minPrice)}

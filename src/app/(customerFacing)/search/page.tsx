@@ -41,7 +41,7 @@ async function SearchPage({ searchParams }: PageProps) {
 
   return (
     <SearchLayout searchParams={searchParams}>
-      <div className="col-start-2 col-end-5 row-start-1 row-end-2">
+      <div className="col-start-2 col-end-5 row-start-1 row-end-2 h-full">
         <ProductList
           searchQuery={searchQuery as string}
           minPrice={Number(minPrice)}

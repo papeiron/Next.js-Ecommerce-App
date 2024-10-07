@@ -19,7 +19,7 @@ const sortOptions = [
 
 async function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex h-full flex-col gap-8">
+    <div className="flex h-auto flex-col gap-8">
       {/* <ProductsCarousel /> */}
       <div className="flex flex-col gap-5">
         <Container>
@@ -34,7 +34,7 @@ async function Layout({ children }: LayoutProps) {
           </div>
         </Container>
 
-        <Container className="grid h-screen grid-cols-4 grid-rows-1 gap-x-6">
+        <Container className="grid grid-cols-4 grid-rows-1 gap-x-6">
           <ProductSidebar fn={fetchMainCategories} showOnlyParents={false} />
           {children}
         </Container>

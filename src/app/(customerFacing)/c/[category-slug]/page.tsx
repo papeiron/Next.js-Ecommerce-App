@@ -74,7 +74,7 @@ async function CategoryPage({ params, searchParams }: PageProps) {
   const sort = searchParams.sort as string;
 
   return (
-    <div className="col-start-2 col-end-5 row-start-1 row-end-2">
+    <div className="col-start-2 col-end-5 row-start-1 row-end-2 h-full">
       <ProductList
         slug={categorySlug as string}
         minPrice={Number(minPrice)}

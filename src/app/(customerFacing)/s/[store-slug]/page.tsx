@@ -40,7 +40,9 @@ async function MainStorePage({ params }: MainStorePage) {
           <div className="flex items-center gap-4 text-gray-600">
             <div className="flex items-center">
               <MdStar className="mr-1 h-5 w-5 text-yellow-400" />
-              <span className="font-semibold">{storeRating?.toFixed(1)}</span>
+              <span className="font-semibold">
+                {storeRating ? storeRating.toFixed(1) : 'Not rated yet'}
+              </span>
             </div>
             <div className="flex items-center">
               <MdStorefront className="mr-1 h-5 w-5 text-orange-1" title="store" />
