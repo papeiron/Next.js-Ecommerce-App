@@ -26,6 +26,7 @@ export const fetchFavoritesByUser = unstable_cache(
                   },
                 },
               },
+              favorites: true,
             },
           },
         },
