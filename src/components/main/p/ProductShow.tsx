@@ -60,7 +60,7 @@ function ProductShow({ product, storeRating, children }: ProductProps) {
 
   const handleAddtoCart = async () => {
     if (!user) {
-      router.push('/signin');
+      toast.error('You must be signed in to do this.');
       return;
     }
 

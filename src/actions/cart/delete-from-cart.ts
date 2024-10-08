@@ -67,6 +67,7 @@ const deleteFromCart = async ({
 
   revalidateTag('cart');
 
+
   return {
     success: {
       message: 'Product successfully deleted from the cart.',
