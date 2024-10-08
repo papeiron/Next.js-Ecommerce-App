@@ -9,7 +9,7 @@ function NewVerificationPage() {
     <div className="flex items-center justify-center bg-gray-50">
       <Suspense
         fallback={
-          <p>
+          <p className="text-center">
             <MiniSpinner />
           </p>
         }

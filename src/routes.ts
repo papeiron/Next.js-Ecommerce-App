@@ -23,7 +23,14 @@ export const publicPrefixes = ['/c', '/p'];
  * These routes will redirect logged in users to /account
  * @type {string[]}
  */
-export const authRoutes = ['/signin', '/signup', '/error', '/reset', '/new-password'];
+export const authRoutes = [
+  '/signin',
+  '/signup',
+  '/error',
+  '/reset',
+  '/new-password',
+  'new-verification',
+];
 
 /**
  * The prefix for appi authentication routes
