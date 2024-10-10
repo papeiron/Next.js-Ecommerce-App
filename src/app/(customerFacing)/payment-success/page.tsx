@@ -13,9 +13,9 @@ async function PaymentSuccessPage({
 }) {
   const user = await currentUser();
 
-  if (order) {
-    await deleteCart(user?.id as string);
-  }
+  // if (order) {
+  //   await deleteCart(user?.id as string);
+  // }
 
   const orderToShow = await fetchOrderByOrderNo(order);
 

@@ -1,25 +1,28 @@
 'use server';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 
 import { db } from '@/lib/db';
-import { fetchCartByUser } from '@/lib/services/cart';
+import { getUserById } from '@/lib/services/user';
+import { paths } from '@/paths';
 
 const deleteCart = async (userId: string) => {
-  const cart = await fetchCartByUser(userId);
+  const currentUser = await getUserById(userId);
 
-  if (cart) {
+  if (currentUser?.cart && currentUser?.cart.length > 0) {
     await db.cart.delete({
       where: {
-        id: cart.id,
+        id: currentUser.cart[0].id,
       },
     });
 
-    // TODO: fix the unexpected behaviour (cant' revalidate cart)
+    revalidatePath(paths.cart());
     revalidateTag('cart');
   } else {
     return null;
   }
+
+  // TODO: fix the unexpected behaviour (cant' revalidate cart)
 };
 
 export default deleteCart;

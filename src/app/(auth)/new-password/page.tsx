@@ -1,4 +1,4 @@
-import { FormSwitcher, NewPasswordForm } from '@/components/auth';
+import { NewPasswordForm } from '@/components/auth';
 import { MiniSpinner } from '@/components/shared/ui';
 import { Suspense } from 'react';
 

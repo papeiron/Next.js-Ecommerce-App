@@ -5,9 +5,10 @@ import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useState } from 'react';
 
 import { createOrder, deleteCart, deleteOrder } from '@/actions/cart';
-import { FormError, MiniSpinner, SubmitButton } from '@/components/shared/ui';
+import { Button, FormError, MiniSpinner, SubmitButton } from '@/components/shared/ui';
 import { useCartContext } from '@/contexts/CartContext';
 import { convertToSubcurrency, roundToTwoDecimals } from '@/lib/utils';
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 type CheckoutStripeFormProps = {
   selectedCarriers: { [key: string]: string };
@@ -24,6 +25,8 @@ function CheckoutStripeForm({
   const [error, setError] = useState<string>();
   const { totalPrice, shippingCosts, validCoupons } = useCartContext();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const user = useCurrentUser();
 
   const shippingTotal = Object.values(shippingCosts).reduce(
     (cost, sum) => (sum += cost),
@@ -33,9 +36,7 @@ function CheckoutStripeForm({
   const domain =
     process.env.NODE_ENV === 'production'
       ? process.env.NEXT_PUBLIC_APP_URL
-      : process.env.AUTH_TRUST_HOST;
-
-  console.log(domain);
+      : process.env.NEXT_PUBLIC_AUTH_TRUST_HOST;
 
   const finalPrice = totalPrice + shippingTotal;
 
@@ -69,6 +70,7 @@ function CheckoutStripeForm({
     e.preventDefault();
 
     if (!stripe || !elements) return;
+    setIsLoading(true);
 
     const { error: submitError } = await elements.submit();
 
@@ -97,12 +99,16 @@ function CheckoutStripeForm({
       },
       redirect: 'if_required',
     });
+    setIsLoading(false);
 
     if (error) {
       setError('An error occurred while making payment. Please try again.');
 
-      if (typeof orderNo === 'string') deleteOrder(orderNo);
+      if (typeof orderNo === 'string') {
+        deleteOrder(orderNo);
+      }
     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+      deleteCart(user?.id as string);
       router.push(`${domain}/payment-success?order=${orderNo}`);
     }
   };
@@ -119,9 +125,13 @@ function CheckoutStripeForm({
       </div>
       <div className="mt-2">{error && <FormError>{error}</FormError>}</div>
 
-      <SubmitButton className="mt-6 w-full">
-        Complete Order ${roundToTwoDecimals(totalPrice + shippingTotal)}
-      </SubmitButton>
+      <Button el="button" className="mt-6 w-full">
+        {isLoading ? (
+          <MiniSpinner />
+        ) : (
+          `Complete Order ${roundToTwoDecimals(totalPrice + shippingTotal)}`
+        )}
+      </Button>
     </form>
   );
 }

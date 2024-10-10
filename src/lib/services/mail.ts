@@ -10,7 +10,7 @@ const myEmail =
 const domain =
   process.env.NODE_ENV === 'production'
     ? process.env.NEXT_PUBLIC_APP_URL
-    : process.env.AUTH_TRUST_HOST;
+    : process.env.NEXT_PUBLIC_AUTH_TRUST_HOST;
 
 export const sendResetPasswordEmail = async (email: string, token: string) => {
   const confirmLink = `${domain}/new-password?token=${token}`;

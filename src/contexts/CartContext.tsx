@@ -1,7 +1,5 @@
 'use client';
 
-import { calculatePriceWithDiscounts } from '@/lib/utils';
-import { CartWithDetails } from '@/types/Cart';
 import React, {
   createContext,
   useContext,
@@ -11,6 +9,9 @@ import React, {
   useCallback,
 } from 'react';
 import { Coupon } from '@prisma/client';
+
+import { calculatePriceWithDiscounts } from '@/lib/utils';
+import { CartWithDetails } from '@/types/Cart';
 import { StoreForCheckout } from '@/types/Store';
 
 type ProductType = CartWithDetails['cart_items'][number]['product'];
@@ -34,7 +35,7 @@ type CartContextType = {
     validCoupons: ValidCouponsType | null,
   ) => void;
   cart: CartWithDetails | undefined;
-  updateCart: (newCart: CartWithDetails) => void;
+  updateCart: (newCart: CartWithDetails | null) => void;
   validCoupons: ValidCouponsType | null;
   updateValidCoupons: (coupons: ValidCouponsType | null) => void;
   updateShippingCost: (storeId: string, cost: number) => void;
@@ -69,9 +70,11 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children, initialCar
   }, [initialCart]);
 
   const updateCart = useCallback(
-    (newCart: CartWithDetails) => {
-      setCart(newCart);
-      updateCartValues(newCart, validCoupons);
+    (newCart: CartWithDetails | null) => {
+      setCart(newCart || undefined);
+      if (newCart) {
+        updateCartValues(newCart, validCoupons);
+      }
     },
     // eslint-disable-next-line
     [validCoupons],

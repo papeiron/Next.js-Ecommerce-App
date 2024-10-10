@@ -1,9 +1,19 @@
+'use client';
+
 import { Order } from '@prisma/client';
 
 import { formatDateTertiary, roundToTwoDecimals } from '@/lib/utils';
 import { CheckCircle } from 'lucide-react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 function OrderDetailsShow({ order }: { order: Order }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.refresh();
+  }, [router]);
+
   return (
     <div className="h-[24rem] w-[400px] rounded-md border p-8">
       <div className="mb-6 flex items-center justify-center">

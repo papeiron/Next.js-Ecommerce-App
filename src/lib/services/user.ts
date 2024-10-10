@@ -20,7 +20,7 @@ export const getUserById = async (id: string) => {
       where: {
         id,
       },
-      include: { store: true },
+      include: { store: true, cart: true },
     });
 
     return user;

@@ -29,4 +29,7 @@ export const paths = {
   myAccountSettings() {
     return '/account/accountsettings';
   },
+  cart() {
+    return '/cart';
+  },
 };

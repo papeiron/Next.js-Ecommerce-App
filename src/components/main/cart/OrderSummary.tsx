@@ -56,7 +56,7 @@ function OrderSummary() {
               </div>
             </Link>
             <div className="flex-[10%]">
-              <p className="flex h-6 w-6 items-center justify-center rounded-md border">
+              <p className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-md border">
                 {item.quantity}
               </p>
             </div>

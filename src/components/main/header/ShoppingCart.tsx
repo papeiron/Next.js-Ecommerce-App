@@ -12,7 +12,7 @@ import { fetchCartByUser } from '@/lib/services/cart';
 import { calculateDiscountedPrice } from '@/lib/utils';
 import { CiShoppingCart } from 'react-icons/ci';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 type SelectedAttribute = {
   val: string;

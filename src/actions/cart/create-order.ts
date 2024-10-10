@@ -9,6 +9,7 @@ import { CartWithDetails } from '@/types';
 import { calculatePriceWithDiscounts } from '@/lib/utils';
 import { revalidateTag } from 'next/cache';
 import { Coupon } from '@prisma/client';
+import deleteCart from './delete-cart';
 
 type ValidCouponsType = {
   categoryCoupons: Coupon[] | [];
@@ -119,6 +120,7 @@ const createOrder = async ({ orderDetails, formState }: createOrderProps) => {
           },
         });
 
+        // update stock
         await db.product.update({
           where: {
             id: item.product_id,
@@ -138,8 +140,6 @@ const createOrder = async ({ orderDetails, formState }: createOrderProps) => {
         },
       });
     }
-
-    // update stock
 
     return { orderNo: order.order_no, cartId: cart.id };
   } catch (err: unknown) {
