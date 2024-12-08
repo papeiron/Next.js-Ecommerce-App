@@ -20,6 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
+      <head>
+        <link rel='icon' type='image/svg+xml' href='/logo-icon.png' />
+      </head>
       <body
         className={`${opensans.className} flex min-h-screen flex-col text-sm text-gray-custom-1 antialiased`}
       >
