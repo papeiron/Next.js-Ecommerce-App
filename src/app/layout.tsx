@@ -18,13 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body
         className={`${opensans.className} flex min-h-screen flex-col text-sm text-gray-custom-1 antialiased`}
       >
         <Providers>{children}</Providers>
         <Toaster
-          position="top-right"
+          position='top-right'
           gutter={12}
           toastOptions={{
             success: {

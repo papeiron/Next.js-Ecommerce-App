@@ -29,35 +29,35 @@ async function PublicHeader() {
   }
 
   return (
-    <header className="flex w-full flex-col gap-4 border-b-[1px]">
-      <div className="flex w-full justify-center bg-gradient-to-r from-red-50 via-white to-red-50 py-3">
-        <p className="flex items-center gap-2">
-          <span className="font-semibold">Fullstack e-commerce platform</span> built with
-          Next.js and MySQL
-          <Link href="https://github.com/papeiron/Next.js-Ecommerce-App">
-            <FaGithub className="h-6 w-6" />
+    <header className='flex w-full flex-col gap-4 border-b-[1px]'>
+      <div className='flex w-full justify-center bg-gradient-to-r from-red-50 via-white to-red-50 py-3'>
+        <p className='flex items-center gap-2'>
+          <span className='font-semibold'>Fullstack e-commerce platform</span> built with Next.js
+          and MySQL
+          <Link href='https://github.com/papeiron/Next.js-Ecommerce-App'>
+            <FaGithub className='h-6 w-6' />
           </Link>
         </p>
       </div>
       <Container>
-        <div className="flex">
-          <div className="flex-[30%]">
-            <div className="flex h-20 w-20 items-center">
+        <div className='flex'>
+          <div className='flex-[30%]'>
+            <div className='flex h-20 w-20 items-center'>
               <Logo />
             </div>
           </div>
 
-          <nav className="flex flex-[80%] items-center justify-between">
-            <div className="w-[500px]">
+          <nav className='flex flex-[80%] items-center justify-between'>
+            <div className='w-[500px]'>
               <Suspense>
                 <Searchbar searchHistory={searchHistory} />
               </Suspense>
             </div>
 
-            <ul className="flex items-center gap-6">
+            <ul className='flex items-center gap-6'>
               <li>
-                <Link href="/favorites">
-                  <CiHeart className="h-[25px] w-[25px] hover:text-orange-1" />
+                <Link href='/favorites'>
+                  <CiHeart className='h-[25px] w-[25px] hover:text-orange-1' />
                 </Link>
               </li>
 
@@ -67,15 +67,16 @@ async function PublicHeader() {
             </ul>
           </nav>
         </div>
-        <div className="mx-auto flex justify-center gap-5 pt-2">
+        <div className='mx-auto flex justify-center gap-5 pt-2'>
           <Link
-            href="/products"
-            className="flex items-center gap-x-1.5 border-b-2 border-white font-semibold hover:border-orange-1 hover:text-orange-1"
+            href='/products'
+            className='flex items-center gap-x-1.5 border-b-2 border-white font-semibold hover:border-orange-1 hover:text-orange-1'
+            prefetch={true}
           >
-            <div className="relative h-8 w-8 overflow-hidden rounded-md">
+            <div className='relative h-8 w-8 overflow-hidden rounded-md'>
               <Image
-                src="https://fhnqpyisstbfjkvuzmvn.supabase.co/storage/v1/object/public/category-image/all.webp"
-                alt="all products"
+                src='https://fhnqpyisstbfjkvuzmvn.supabase.co/storage/v1/object/public/category-image/all.webp'
+                alt='all products'
                 fill
               />
             </div>
