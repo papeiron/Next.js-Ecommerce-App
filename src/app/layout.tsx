@@ -3,6 +3,7 @@ import { opensans } from '@/lib/fonts';
 import type { Metadata } from 'next';
 import { Toaster } from 'react-hot-toast';
 import './globals.css';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default function RootLayout({
       <body
         className={`${opensans.className} flex min-h-screen flex-col text-sm text-gray-custom-1 antialiased`}
       >
+        <NextTopLoader />
         <Providers>{children}</Providers>
         <Toaster
           position='top-right'
